@@ -24,4 +24,12 @@ class Product extends Model
     return $this->belongsTo('App\Category');
   }
 
+  public function color(){
+    return $this->belongsTo('App\Color');
+  }
+
+  public function size(){
+    return $this->belongsTo('App\Size');
+  }
+
 }

@@ -26,14 +26,14 @@
       <tr>
         <td>{{ $product->id }}</td>
         <td>{{ $product->designation }}</td>
-        <td>{{ $product->category->name }}</td>
+        <td>{{ $product->category }}</td>
         <td>{{ $product->price }}</td>
         <td>Picture</td>
-        <td>{{ App\Variant::where() }} Color</td>
-        <td>Size</td>
-        <td>Stock</td>
+        <td>{{ $product->color }}</td>
+        <td>{{ $product->size }}</td>
+        <td>{{ $product->stock }}</td>
         <td>Tags</td>
-        <td>Online</td>
+        <td>{{ $product->online }}</td>
         <td>Edit</td>
         {{-- <p><a href="{{ route('news.edit', $post) }}">Éditer</a></p> --}}
       </tr>
