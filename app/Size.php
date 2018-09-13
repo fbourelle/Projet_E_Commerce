@@ -12,7 +12,4 @@ class Size extends Model
     return $this->hasMany('App\Variant');
   }
 
-  public function products(){
-    return $this->hasMany('App\Product');
-  }
 }

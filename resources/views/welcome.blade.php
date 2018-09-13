@@ -24,7 +24,7 @@
                     @endauth
                 </div>
             @endif
-            <span>Salut</span>
+            <span>Mon site</span>
             </br>
             <div class="content">
                 @yield('content')

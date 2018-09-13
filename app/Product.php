@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-  protected $fillable = ['designation', 'description', 'weight', 'price', 'material'];
+  protected $fillable = ['designation', 'category_id', 'description', 'weight', 'price', 'material', 'etiquettes_list'];
 
   public function etiquettes(){
     return $this->belongsToMany('App\Etiquette');
@@ -24,12 +24,17 @@ class Product extends Model
     return $this->belongsTo('App\Category');
   }
 
-  public function color(){
-    return $this->belongsTo('App\Color');
+  public function getEtiquettesListAttribute(){
+    if($this->id){
+      return $this->etiquettes->pluck('id');
+    }
   }
 
-  public function size(){
-    return $this->belongsTo('App\Size');
+  public function setEtiquettesListAttribute($value){
+    // dd($value);
+    // if($this->id){
+      return $this->etiquettes()->sync($value);
+    // }
   }
 
 }

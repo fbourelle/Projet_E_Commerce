@@ -1,9 +1,6 @@
+@extends('admin.admin')
 
-@extends('admin.admin.')
-
-
-
-@section('products2')
+@section('products')
   <h2>Products</h2>
   <table class="ui celled table">
   <thead>
@@ -25,8 +22,8 @@
         <td>{{ $product->category->name }}</td>
         <td>{{ $product->price }}</td>
         <td>
-          @foreach($product->etiquettes as $tag)
-            <div class="ui red horizontal label">{{ $tag->name }}</div>
+          @foreach($product->etiquettes as $etiquette)
+            <div class="ui red horizontal label">{{ $etiquette->name }}</div>
           @endforeach
         </td>
         <td>
@@ -44,23 +41,16 @@
               <tbody>
                 @foreach($product->variants as $variant)
                 <tr>
-                  <th>{{ $variant->id }}</th>
-                  <th>{{ $variant->size->name }}</th>
-                  <th>{{ $variant->color->name }}</th>
-                  <th>pictures</th>
-                  <th>{{ $variant->stock }}</th>
-                  <th>{{ $variant->online }}</th>
+                  <td>{{ $variant->id }}</td>
+                  <td>{{ $variant->size->name }}</td>
+                  <td>{{ $variant->color->name }}</td>
+                  <td>pictures</td>
+                  <td>{{ $variant->stock }}</td>
+                  <td>{{ $variant->online }}</td>
                 </tr>
                   @endforeach
               </tbody>
             </table>
-
-
-        {{-- <td>{{ $product->online }}</td>
-        <td>{{ $product->color }}</td>
-        <td>{{ $product->size }}</td>
-        <td>{{ $product->stock }}</td> --}}
-        {{-- <td>{{ $product->tags }}</td> --}}
 
         <td>Edit</td>
         {{-- <p><a href="{{ route('news.edit', $post) }}">Éditer</a></p> --}}

@@ -24,4 +24,4 @@ Route::get('r/{link}', ['as' => 'link.show',  'uses' => 'LinksController@show'])
 // Route::get('/a-propos', ['as' => 'about', 'uses' => 'PageController@about']);
 Route::resource('news', 'PostsController');
 
-Route::resource('admin', 'ProductsController');
+Route::resource('admin/products', 'ProductsController');

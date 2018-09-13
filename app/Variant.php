@@ -9,7 +9,7 @@ class Variant extends Model
 
   protected $fillable = ['size_id', 'color_id', 'stock', 'product_id'];
 
-  public function product(){
+  public function products(){
     return $this->belongsTo('App\Product');
   }
 
