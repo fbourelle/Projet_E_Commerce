@@ -19,17 +19,27 @@ class ProductsController extends Controller
       //               ->with('sizes')
       //               ->get();
 
+      $productTags = DB::table('post_tag')
+                   ->select('post_tag.post_id')
+                   ->join('tags' , 'post_tag.tag_id', '=', 'tags.id');
+
       $products = DB::table('products')
-                      ->select('variants.id as id', 'designation', 'price', 'categories.name as category', 'colors.name as color', 'sizes.name as size', 'variants.stock as stock', 'variants.online as online')
+                      ->select('variants.id as id', 'designation', 'price', 'categories.name as category', 'colors.name as color', 'sizes.name as size', 'variants.stock as stock', 'variants.online as online', 'tags.name as tags')
                       ->join('variants', 'products.id', '=', 'variants.product_id')
                       ->join('colors', 'variants.color_id', '=', 'colors.id')
                       ->join('sizes', 'variants.size_id', '=', 'sizes.id')
+                      // ->joinSub($productTags, 'product_tag', function($join) {
+                      //     $join->on('product_tag.post_tag.post_id', '=', 'products.id');
+                      // })
+                      ->join('post_tag', 'post_tag.post_id', '=', 'products.id')
+                      ->join('tags', 'post_tag.tag_id', '=', 'tags.id')
                       ->join('categories', 'products.category_id', '=', 'categories.id')
                       ->orderBy('products.id')
                       ->orderBy('colors.id')
+                      // ->groupBy('variants.id')
                       ->get();
 
-      // dd($products);
+      dd($products);
       return view('admin.index', compact('products'));
     }
 
@@ -52,8 +62,9 @@ class ProductsController extends Controller
     {
       $variant = Variant::findOrFail($id);
       $product = Product::where('id', $variant->product_id)->firstOrFail();
-      dd($variant);
+      dd($variant, $product);
 
+      return view('admin.edit', compact('product'));
     }
 
     public function update()

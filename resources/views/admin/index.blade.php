@@ -32,7 +32,7 @@
         <td>{{ $product->color }}</td>
         <td>{{ $product->size }}</td>
         <td>{{ $product->stock }}</td>
-        <td>Tags</td>
+        <td>{{ $product->tags }}</td>
         <td>{{ $product->online }}</td>
         <td>Edit</td>
         {{-- <p><a href="{{ route('news.edit', $post) }}">Éditer</a></p> --}}

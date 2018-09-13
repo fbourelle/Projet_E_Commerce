@@ -5,10 +5,19 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use App\Category;
+use App\Tag;
 
 class Post extends Model
 {
   protected $fillable = ['title', 'slug', 'content', 'online', 'category_id', 'tags_list'];
+
+// Plus nécessaire, utiliser les objets "Requests"
+  // public static $rules =
+  //               [
+  //                 'title' => 'required|min:5',
+  //                 'content' => 'required|min:10'
+  //               ];
+
   // scope qui va chercher que les posts qui sont 'online'
   public function scopePublished($query) {
     return $query->where('online', true)->whereRaw('created_at < Now()');

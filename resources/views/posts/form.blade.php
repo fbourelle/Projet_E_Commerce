@@ -6,7 +6,7 @@
   }
  ?>
 
-{{ $errors }}
+@include('errors/errors') 
 
 {{ Form::model($post, $options) }}
   {{ Form::label('title', 'Titre') }}

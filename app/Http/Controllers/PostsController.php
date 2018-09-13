@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Post;
 use App\Category;
+use App\Http\Requests\EditPostRequest;
 
 class PostsController extends Controller
 {
@@ -24,8 +25,9 @@ class PostsController extends Controller
     {
       $post = Post::findOrFail($id);
       $categories = Category::pluck('name', 'id');
+      $tags = Category::pluck('name', 'id');
       // dd($categories);
-      return view('posts.edit', compact('post', 'categories'));
+      return view('posts.edit', compact('post', 'categories', 'tags'));
     }
 
     public function show($id)
@@ -34,21 +36,26 @@ class PostsController extends Controller
       return $post;
     }
 
-    public function update($id, Request $request)
+    public function update($id, EditPostRequest $request)
     {
+
+      // Plus nécessaire avec l'objet request
+      // $this->validate($request, Post::$rules);
+
       $post = Post::findOrFail($id);
-      $validator = Validator::make($request->all(),[
-                      'tilte' => 'required|min:5',
-                      'content' => 'required|min:10'
-                    ]);
-      if($validator->fails()){
-        return redirect(route('news.edit', $id))->withErrors($validator->errors());
-      } else {
+      // $validator = Validator::make($request->all(),[
+      //                 'title' => 'required|min:5',
+      //                 'content' => 'required|min:10'
+      //               ]);
+      // if($validator->fails()){
+      //   return redirect(route('news.edit', $id))->withErrors($validator->errors());
+      // } else {
         $post->update($request->all());
         // $post->tags()->sync($request->get('tags'));
         // dd($request->all());
         return redirect(route('news.edit', $id));
-      }
+          // return redirect(route('news.index'));
+      // }
     }
 
     public function create()

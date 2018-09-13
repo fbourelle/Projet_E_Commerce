@@ -8,8 +8,8 @@ class Product extends Model
 {
   protected $fillable = ['designation', 'description', 'weight', 'price', 'material'];
 
-  public function tags(){
-    return $this->belongsToMany('App\Tag');
+  public function etiquettes(){
+    return $this->belongsToMany('App\Etiquette');
   }
 
   public function user(){
