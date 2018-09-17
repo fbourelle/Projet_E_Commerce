@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-  protected $fillable = ['designation', 'category_id', 'description', 'weight', 'price', 'material', 'etiquettes_list'];
+  protected $fillable = ['designation', 'category_id', 'description', 'weight', 'price', 'material', 'etiquettes_list', 'reduction', 'real_price', 'online'];
 
   public function etiquettes(){
     return $this->belongsToMany('App\Etiquette');
@@ -22,6 +22,15 @@ class Product extends Model
 
   public function category(){
     return $this->belongsTo('App\Category');
+  }
+
+  public function getMaterialAttribute($value)
+  {
+    return ucfirst($value);
+  }
+
+  public function getRealPriceAttribute(){
+    return ($this->price * $this->reduction)/100;
   }
 
   public function getEtiquettesListAttribute(){

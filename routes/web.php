@@ -25,3 +25,9 @@ Route::get('r/{link}', ['as' => 'link.show',  'uses' => 'LinksController@show'])
 Route::resource('news', 'PostsController');
 
 Route::resource('admin/products', 'ProductsController');
+
+Route::resource('admin/variants', 'VariantsController', ['only' => ['edit', 'put', 'show', 'update', 'store']]);
+
+Route::get('admin/variants/{product}/create', ['as' => 'variants.create', 'uses' => 'VariantsController@create']);
+
+// Route::put('admin/variants/{variant}', ['as' => 'variants.update', 'uses' => 'VariantsController@update']);

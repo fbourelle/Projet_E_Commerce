@@ -25,7 +25,7 @@ class PostsController extends Controller
     {
       $post = Post::findOrFail($id);
       $categories = Category::pluck('name', 'id');
-      $tags = Category::pluck('name', 'id');
+      $tags = Tag::pluck('name', 'id');
       // dd($categories);
       return view('posts.edit', compact('post', 'categories', 'tags'));
     }

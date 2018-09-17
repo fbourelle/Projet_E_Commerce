@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Product;
 use App\Category;
 use App\Variant;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\EditProductRequest;
 
 class ProductsController extends Controller
 {
@@ -37,8 +39,7 @@ class ProductsController extends Controller
       //                 ->orderBy('colors.id')
       //                 // ->groupBy('variants.id')
       //                 ->get();
-      // dd($products);
-      // dd($variants);
+
       return view('admin.products.index', compact('products', 'variants'));
     }
 
@@ -49,7 +50,7 @@ class ProductsController extends Controller
       return view('admin.products.create', compact('product', 'categories'));
     }
 
-    public function store(Request $request)
+    public function store(EditProductRequest $request)
     {
       // dd($request);
       $product = new Product;
@@ -57,12 +58,12 @@ class ProductsController extends Controller
       $product->description = $request->description;
       $product->weight = $request->weight;
       $product->price = $request->price;
+      $product->reduction = $request->reduction;
       $product->material = $request->material;
       $product->category_id = $request->category_id;
       $product->save();
       $product->etiquettes()->sync($request->etiquettes_list);
       $product->update();
-
       // return redirect(route('admin.products.index'));
     }
 
@@ -73,16 +74,16 @@ class ProductsController extends Controller
 
     public function edit($id)
     {
-      $variant = Variant::findOrFail($id);
-      $product = Product::where('id', $variant->product_id)->firstOrFail();
-      dd($variant, $product);
-
-      return view('admin.edit', compact('product'));
+      $product = Product::findOrFail($id);
+      $categories = Category::pluck('name', 'id');
+      return view('admin.products.edit', compact('product', 'categories'));
     }
 
-    public function update()
+    public function update($product, EditProductRequest $request)
     {
-
+      $product = Product::findOrFail($product);
+      $product->update($request->all());
+      return redirect(route('products.index'));
     }
 
     public function destroy()

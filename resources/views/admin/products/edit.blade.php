@@ -2,19 +2,25 @@
 
 @section('content')
 
-<h1>Ajouter une variante à {{ $product->designation }}</h1>
+<h1>Editer {{ $product->id }}</h1>
 
-@include('admin.variants.form')
+@include('admin.products.form')
 
-{{-- {{ Form::open(['url' => route('news.store')]) }}
+{{-- {{ Form::model($post, ['method' => 'put', 'url' => route('news.update', $post)]) }}
   {{ Form::label('title', 'Titre') }}
   {{ Form::text('title', null, ['attribute' => 'require']) }}
   </br>
   {{ Form::label('slug', 'Url') }}
   {{ Form::text('slug', null, ['attribute' => 'require']) }}
-</br>
+  </br>
+  {{ Form::label('category_id', 'Catégories') }}
+  {{ Form::select('category_id', $categories, null) }}
+  </br>
   {{ Form::label('content', 'Contenu') }}
   {{ Form::textarea('content', null, ['attribute' => 'require']) }}
+  </br>
+  {{ Form::label('online', 'En ligne ?') }}
+  {{ Form::checkbox('online', 1, null) }}
   <button>Envoyer</button>
 {{ Form::close() }} --}}
 
